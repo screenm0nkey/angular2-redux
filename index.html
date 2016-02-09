@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Angular2 + Redux </title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="/node_modules/systemjs/dist/system.js"></script>
+  <script src="/node_modules/typescript/lib/typescript.js"></script>
+  <script src="config.js"></script>
+  <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="/node_modules/angular2/bundles/angular2.min.js"></script>
+  <script src="/node_modules/angular2/bundles/http.min.js"></script>
+
+  <script>
+    // 'app' is defined in config.js as the './src'
+    System.import('app')
+      .catch(console.error.bind(console));
+  </script>
+</head>
+
+<body>
+  <root>
+    loading...
+  </root>
+</body>
+
+</html>

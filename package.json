@@ -1,0 +1,26 @@
+{
+  "name": "gsans-flux-app",
+  "version": "1.0.0",
+  "description": "Features: - Initial port from Redux video course by Dan Abramov. Note some parts divert from the original. - Added Pipe to filter todos.",
+  "main": "config.js",
+  "dependencies": {
+    "es6-shim": "^0.33.13",
+    "angular2": "^2.0.0-beta.0",
+    "body-parser": "^1.14.2",
+    "es6-promise": "^3.0.2",
+    "express-cors": "^0.0.3",
+    "redux": "^3.0.4",
+    "reflect-metadata": "^0.1.2",
+    "express": "^4.13.3",
+    "rxjs": "^5.0.0-beta.0",
+    "zone.js": "^0.5.10",
+    "systemjs": "^0.19.9",
+    "typescript": "^1.7.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "live-server"
+  },
+  "author": "",
+  "license": "ISC"
+}
