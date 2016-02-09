@@ -6,7 +6,6 @@ import {Pipe, PipeTransform} from 'angular2/core';
     name: 'visibleTodos'
 })
 export class VisibleTodosPipe implements PipeTransform {
-
     transform(todos, args) {
         if (isBlank(args) || args.length == 0) {
             throw new BaseException('VisibleTodos pipe requires one argument');
@@ -18,7 +17,6 @@ export class VisibleTodosPipe implements PipeTransform {
     }
 
     private getVisibleTodos(todos, filter) {
-        console.log(todos);
         switch (filter) {
             case 'SHOW_ACTIVE':
                 return todos.filter(t => !t.completed);

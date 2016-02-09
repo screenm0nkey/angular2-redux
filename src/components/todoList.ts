@@ -1,23 +1,29 @@
 import {Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from 'angular2/core';
 import {Todo} from './todo';
 import {VisibleTodosPipe} from '../pipes/visibleTodosPipe';
+import {AppStore} from './ReduxInterface';
+import {Todo} from './ToDoInterface';
 
 @Component({
     selector: 'todo-list',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-    <ul>
-      <todo 
-        *ngFor="#todo of todos | visibleTodos:currentFilter"
-        [completed]="todo.completed"
-        [id]="todo.id"
-      >{{todo.text}}</todo>
-    </ul>
-  `,
     directives: [Todo],
-    pipes: [VisibleTodosPipe]
+    pipes: [VisibleTodosPipe],
+    template: `
+        <ul>
+          <todo
+            *ngFor="#todo of todos | visibleTodos:currentFilter"
+            [completed]="todo.completed"
+            [id]="todo.id">
+                {{todo.text}}
+          </todo>
+        </ul>
+    `
 })
 export class TodoList implements OnDestroy {
+    unsubscribe : Function;
+    currentFilter : string;
+    todos:Todo[] = [];
 
     constructor(private ref: ChangeDetectorRef,
                 @Inject('AppStore') private appStore:AppStore)

@@ -1,5 +1,6 @@
 import {Component, Inject} from 'angular2/core';
-import {TodoActions} from '../todoActions';
+import {TodoActions} from '../actionCreator';
+import {AppStore} from './ReduxInterface';
 
 @Component({
     selector: 'add-todo',
@@ -16,7 +17,9 @@ export class AddTodo {
 
 
     private addTodo(input) {
-        this.appStore.dispatch(this.todoActions.addTodo(input.value));
-        input.value = '';
+        if (input.value) {
+            this.appStore.dispatch(this.todoActions.addTodo(input.value));
+            input.value = '';
+        }
     }
 }

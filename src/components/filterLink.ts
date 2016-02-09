@@ -1,5 +1,6 @@
 import {Component, ContentChildren, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
-import {TodoActions} from '../todoActions';
+import {TodoActions} from '../actionCreator';
+import {AppStore} from './ReduxInterface';
 
 @Component({
     selector: 'filter-link',
@@ -22,7 +23,7 @@ export class FilterLink implements OnInit, OnDestroy {
     ){
         this.unsubscribe = this.appStore.subscribe(() => {
             this.updateActive();
-            this.ref.markForCheck();
+            this.ref.markForCheck(); // force the view to update as it's using OnPush
         });
 
     }

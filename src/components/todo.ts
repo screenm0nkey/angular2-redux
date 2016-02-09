@@ -1,16 +1,17 @@
 import {Component, ContentChildren, Inject, ChangeDetectionStrategy} from 'angular2/core';
-import {TodoActions} from '../todoActions';
+import {TodoActions} from '../actionCreator';
+import {AppStore} from './ReduxInterface';
 
 @Component({
     selector: 'todo',
     changeDetection: ChangeDetectionStrategy.OnPush,
     inputs: ['completed', 'id'],
     template: `
-    <li (click)="onTodoClick(id)"
-      [style.textDecoration]="completed?'line-through':'none'">
-      <ng-content></ng-content>
-    </li> 
-  `
+        <li [style.textDecoration]="completed?'line-through':'none'">
+          <span (click)="onTodoClick(id)"><ng-content></ng-content></span>
+          <span [style.cursor]="'pointer'" (click)="removeTodo(id)">[remove]</span>
+        </li>
+    `
 })
 export class Todo {
     constructor(
