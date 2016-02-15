@@ -1,8 +1,11 @@
 //our root app component
-import {Component} from 'angular2/core'
+import {Component, Inject, OnDestroy} from 'angular2/core'
 import {AddTodo} from './addTodo';
 import {TodoList} from './todoList';
 import {Filters} from './filters';
+import {AppStore} from '../interfaces/ReduxInterface';
+import {Todo} from '../interfaces/ToDoInterface';
+import {State} from '../interfaces/StateInterface';
 
 @Component({
     selector: 'root',
@@ -10,10 +13,23 @@ import {Filters} from './filters';
     <div>
       <add-todo></add-todo>
       <filters></filters>
-      <todo-list></todo-list>
+      <todo-list [todos]="state?.todos" [currentFilter]="state?.currentFilter"></todo-list>
     </div>
     `,
     directives: [AddTodo, TodoList, Filters]
 })
-export class App {
+export class App implements OnDestroy {
+    unsubscribe : Function;
+    state : State;
+
+    constructor(@Inject('AppStore') private appStore:AppStore) {
+        this.unsubscribe = this.appStore.subscribe(()=> {
+            this.state = this.appStore.getState();
+        });
+    }
+
+    private ngOnDestroy() {
+        //remove listener
+        this.unsubscribe();
+    }
 }

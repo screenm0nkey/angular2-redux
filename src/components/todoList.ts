@@ -1,4 +1,4 @@
-import {Component, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from 'angular2/core';
+import {Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, OnChanges} from 'angular2/core';
 import {Todo} from './todo';
 import {VisibleTodosPipe} from '../pipes/visibleTodosPipe';
 import {AppStore} from '../interfaces/ReduxInterface';
@@ -6,9 +6,9 @@ import {Todo} from '../interfaces/ToDoInterface';
 
 @Component({
     selector: 'todo-list',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [Todo],
     pipes: [VisibleTodosPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <ul>
           <todo
@@ -20,27 +20,12 @@ import {Todo} from '../interfaces/ToDoInterface';
         </ul>
     `
 })
-export class TodoList implements OnDestroy {
-    unsubscribe : Function;
-    currentFilter : string;
-    todos:Todo[] = [];
+export class TodoList implements OnChanges {
+    @Input('todos') todos:Todo[];
+    @Input('currentFilter') currentFilter;
 
-    constructor(
-        private ref: ChangeDetectorRef,
-        @Inject('AppStore') private appStore:AppStore
-    )
-    {
-        this.unsubscribe = this.appStore.subscribe(()=> {
-            let state = this.appStore.getState();
-            this.currentFilter = state.currentFilter;
-            this.todos = state.todos;
-            this.ref.markForCheck();
-        });
-    }
-
-    private ngOnDestroy() {
-        //remove listener
-        this.unsubscribe();
+    ngOnChanges() {
+        console.log(this);
     }
 }
 

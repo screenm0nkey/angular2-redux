@@ -7,7 +7,9 @@ import {AppStore} from '../interfaces/ReduxInterface';
     changeDetection: ChangeDetectionStrategy.OnPush,
     inputs: ['filter'],
     template: `
-    <a href="#" (click)="applyFilter(filter);" [ngClass]="{'active': active, 'inactive': !active}">
+    <a href="#"
+        (click)="applyFilter(filter);"
+        [ngClass]="{'active': active, 'inactive': !active}">
         <ng-content></ng-content>
     </a>`
 })
@@ -21,6 +23,8 @@ export class FilterLink implements OnInit, OnDestroy {
         private ref: ChangeDetectorRef,
         private todosActionCreator:TodosActionCreator
     ){
+        // this is alternative way to update the view by subscribing to the store
+        // and explicitly updating the view. see the "todoList" for a better way
         this.unsubscribe = this.appStore.subscribe(() => {
             this.updateActive();
             this.ref.markForCheck(); // force the view to update as it's using OnPush
@@ -44,7 +48,6 @@ export class FilterLink implements OnInit, OnDestroy {
     }
 
     private updateActive() {
-        console.log(1, this.active);
         this.active = this.filter === this.appStore.getState().currentFilter;
     }
 }
