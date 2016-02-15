@@ -5,7 +5,7 @@ import {provide} from 'angular2/core';
 import {App} from './components/app';
 import {createStore, combineReducers} from 'redux';
 import {rootReducer} from './rootReducer';
-import {TodoActions} from './actionCreator';
+import {TodosActionCreator} from './actionCreator';
 import {todo, todos, currentFilter} from './reducers';
 
 
@@ -20,5 +20,5 @@ const appStore = createStore(todoApp);
 
 bootstrap(App, [
     provide('AppStore', {useValue: appStore}),
-    TodoActions
+    TodosActionCreator
 ]).catch(err => console.error(err));

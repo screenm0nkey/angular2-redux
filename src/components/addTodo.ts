@@ -1,6 +1,6 @@
 import {Component, Inject} from 'angular2/core';
-import {TodoActions} from '../actionCreator';
-import {AppStore} from './ReduxInterface';
+import {TodosActionCreator} from '../actionCreator';
+import {AppStore} from '../interfaces/ReduxInterface';
 
 @Component({
     selector: 'add-todo',
@@ -13,7 +13,8 @@ import {AppStore} from './ReduxInterface';
 export class AddTodo {
     constructor(
         @Inject('AppStore') private appStore:AppStore,
-        private todoActions:TodoActions) {}
+        private todoActions:TodosActionCreator
+    ) {}
 
 
     private addTodo(input) {

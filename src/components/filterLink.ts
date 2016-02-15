@@ -1,6 +1,6 @@
 import {Component, ContentChildren, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
-import {TodoActions} from '../actionCreator';
-import {AppStore} from './ReduxInterface';
+import {TodosActionCreator} from '../actionCreator';
+import {AppStore} from '../interfaces/ReduxInterface';
 
 @Component({
     selector: 'filter-link',
@@ -19,7 +19,7 @@ export class FilterLink implements OnInit, OnDestroy {
     constructor(
         @Inject('AppStore') private appStore:AppStore,
         private ref: ChangeDetectorRef,
-        private todoActions:TodoActions
+        private todosActionCreator:TodosActionCreator
     ){
         this.unsubscribe = this.appStore.subscribe(() => {
             this.updateActive();
@@ -40,10 +40,11 @@ export class FilterLink implements OnInit, OnDestroy {
 
     // Helper methods
     private applyFilter(filter) {
-        this.appStore.dispatch(this.todoActions.setCurrentFilter(filter));
+        this.appStore.dispatch(this.todosActionCreator.setCurrentFilter(filter));
     }
 
     private updateActive() {
+        console.log(1, this.active);
         this.active = this.filter === this.appStore.getState().currentFilter;
     }
 }
