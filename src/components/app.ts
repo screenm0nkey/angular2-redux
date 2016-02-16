@@ -3,9 +3,9 @@ import {Component, Inject, OnDestroy} from 'angular2/core'
 import {AddTodo} from './addTodo';
 import {TodoList} from './todoList';
 import {Filters} from './filters';
-import {AppStore} from '../interfaces/ReduxInterface';
-import {Todo} from '../interfaces/ToDoInterface';
-import {State} from '../interfaces/StateInterface';
+import {AppStore} from '../models/redux';
+import {Todo} from '../models/todo';
+import {State} from '../models/state';
 
 @Component({
     selector: 'root',

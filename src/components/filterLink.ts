@@ -1,6 +1,6 @@
 import {Component, ContentChildren, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {TodosActionCreator} from '../actionCreator';
-import {AppStore} from '../interfaces/ReduxInterface';
+import {AppStore} from '../models/redux';
 
 @Component({
     selector: 'filter-link',

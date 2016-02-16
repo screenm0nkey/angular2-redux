@@ -1,4 +1,4 @@
-import {Todo} from "./ToDoInterface";
+import {Todo} from "./todo";
 
 interface State {
     todos :Todo[];

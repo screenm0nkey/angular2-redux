@@ -1,8 +1,8 @@
 import {Component, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, OnChanges} from 'angular2/core';
 import {Todo} from './todo';
 import {VisibleTodosPipe} from '../pipes/visibleTodosPipe';
-import {AppStore} from '../interfaces/ReduxInterface';
-import {Todo} from '../interfaces/ToDoInterface';
+import {AppStore} from '../models/redux';
+import {Todo} from '../models/todo';
 
 @Component({
     selector: 'todo-list',
