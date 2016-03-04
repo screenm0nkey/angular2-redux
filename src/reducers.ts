@@ -10,7 +10,7 @@ export const todo = (state, action) => {
             if (state.id !== action.id) {
                 return state;
             }
-
+            // Object.assign returns a new object
             return Object.assign({}, state, {
                 completed: !state.completed
             });
@@ -19,12 +19,13 @@ export const todo = (state, action) => {
     }
 };
 
+
 export const todos = (state = [], action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return [
                 ...state,
-                todo(undefined, action)
+                todo(null, action)
             ];
         case 'TOGGLE_TODO':
             return state.map(t =>
@@ -38,6 +39,7 @@ export const todos = (state = [], action) => {
             return state;
     }
 };
+
 
 export const currentFilter = (state = 'SHOW_ALL', action) => {
     switch (action.type) {

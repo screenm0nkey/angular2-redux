@@ -23,13 +23,14 @@ export class FilterLink implements OnInit, OnDestroy {
         private ref: ChangeDetectorRef,
         private todosActionCreator:TodosActionCreator
     ){
-        // this is alternative way to update the view by subscribing to the store
-        // and explicitly updating the view. see the "todoList" for a better way
+        // this is alternative way to update the view, by explicitly calling markForCheck()
+        // when a change to the store happens. the "todoList.ts" doesn't have to do this
+        // becuase it's parent App view subscribes to the store an and updates the t
+        // odoList's @Inputs, which triggers implicitly triggers a markForCheck();
         this.unsubscribe = this.appStore.subscribe(() => {
             this.updateActive();
             this.ref.markForCheck(); // force the view to update as it's using OnPush
         });
-
     }
 
     private ngOnInit() {

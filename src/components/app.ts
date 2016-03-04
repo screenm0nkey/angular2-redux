@@ -23,8 +23,12 @@ export class App implements OnDestroy {
     state : State;
 
     constructor(@Inject('AppStore') private appStore:AppStore) {
+        // subscribe to the redux appStore. the request handler is
+        // invoked every time a change is made to the store at which
+        // point we update this.store
         this.unsubscribe = this.appStore.subscribe(()=> {
             this.state = this.appStore.getState();
+            console.log(1, this.state);
         });
     }
 
