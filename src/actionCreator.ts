@@ -3,7 +3,7 @@ export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 export const SET_CURRENT_FILTER = 'SET_CURRENT_FILTER';
 
-export class TodosActionCreator {
+export class ActionCreator {
   nextToDoId : Number = 0;
 
   addTodo(text){

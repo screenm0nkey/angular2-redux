@@ -28,7 +28,7 @@ export class App implements OnDestroy {
         // point we update this.store
         this.unsubscribe = this.appStore.subscribe(()=> {
             this.state = this.appStore.getState();
-            console.log(1, this.state);
+            console.log('Redux Store Change ', this.state);
         });
     }
 

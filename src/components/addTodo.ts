@@ -1,5 +1,5 @@
 import {Component, Inject} from 'angular2/core';
-import {TodosActionCreator} from '../actionCreator';
+import {ActionCreator} from '../actionCreator';
 import {AppStore} from '../models/redux';
 
 @Component({
@@ -13,13 +13,13 @@ import {AppStore} from '../models/redux';
 export class AddTodo {
     constructor(
         @Inject('AppStore') private appStore:AppStore,
-        private todoActions:TodosActionCreator
+        private actionCreator:ActionCreator
     ) {}
 
 
     private addTodo(input) {
         if (input.value) {
-            this.appStore.dispatch(this.todoActions.addTodo(input.value));
+            this.appStore.dispatch(this.actionCreator.addTodo(input.value));
             input.value = '';
         }
     }

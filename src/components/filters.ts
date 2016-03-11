@@ -12,5 +12,4 @@ import {FilterLink} from './filterLink';
     `,
     directives: [FilterLink]
 })
-export class Filters {
-}
+export class Filters {}

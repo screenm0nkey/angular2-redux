@@ -1,32 +1,42 @@
-import {Component, ContentChildren, Inject, ChangeDetectionStrategy} from 'angular2/core';
-import {TodosActionCreator} from '../actionCreator';
+import {Component, ContentChildren, Input, Inject, ChangeDetectionStrategy, OnChanges} from 'angular2/core';
+import {ActionCreator} from '../actionCreator';
 import {AppStore} from '../models/redux';
 
 @Component({
     selector: 'todo',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    inputs: ['completed', 'id'],
     template: `
-        <li [style.cursor]="'pointer'">
-            <span
-                (click)="toggleTodo(id)"
-                [style.textDecoration]="completed?'line-through':'none'">
+        <li>
+            <span [style.textDecoration]="completed?'line-through':'none'">
                 <ng-content></ng-content>
             </span>
-            <span (click)="removeTodo(id)">[remove]</span>
+            <a href="#" (click)="toggleTodo($event, id)">[Mark as {{completed ? 'Active' : 'Completed'}}]</a>
+            <a href="#" (click)="removeTodo($event, id)">[x]</a>
         </li>
     `
 })
-export class Todo {
+export class Todo implements OnChanges {
+    @Input('completed') completed:boolean;
+    @Input('id') id : number;
+
     constructor(
         @Inject('AppStore') private appStore:AppStore,
-        private todoActions:TodosActionCreator) {}
+        private todoActions:ActionCreator
+    ) {}
 
-    private toggleTodo(id) {
-        this.appStore.dispatch(this.todoActions.toggleTodo(id));
+    private toggleTodo(evt, id) {
+        evt.preventDefault();
+        let action = this.todoActions.toggleTodo(id);
+        this.appStore.dispatch(action);
     }
 
-    private removeTodo(id) {
-        this.appStore.dispatch(this.todoActions.removeTodo(id));
+    private removeTodo(evt, id) {
+        evt.preventDefault();
+        let action = this.todoActions.removeTodo(id);
+        this.appStore.dispatch(action);
+    }
+
+    ngOnChanges() {
+        console.log(this);
     }
 }

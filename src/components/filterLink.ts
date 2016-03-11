@@ -1,5 +1,5 @@
-import {Component, ContentChildren, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
-import {TodosActionCreator} from '../actionCreator';
+import {Component, ContentChildren, Input, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
+import {ActionCreator} from '../actionCreator';
 import {AppStore} from '../models/redux';
 
 @Component({
@@ -14,6 +14,7 @@ import {AppStore} from '../models/redux';
     </a>`
 })
 export class FilterLink implements OnInit, OnDestroy {
+    @Input('filter') filter : string;
     filter:String;
     active : Boolean;
     unsubscribe : Function;
@@ -21,12 +22,12 @@ export class FilterLink implements OnInit, OnDestroy {
     constructor(
         @Inject('AppStore') private appStore:AppStore,
         private ref: ChangeDetectorRef,
-        private todosActionCreator:TodosActionCreator
+        private actionCreator:ActionCreator
     ){
         // this is alternative way to update the view, by explicitly calling markForCheck()
-        // when a change to the store happens. the "todoList.ts" doesn't have to do this
-        // becuase it's parent App view subscribes to the store an and updates the t
-        // odoList's @Inputs, which triggers implicitly triggers a markForCheck();
+        // when a change to the store happens. The "todoList.ts" doesn't have to explicitly
+        // call update because it's parent "App" view subscribes to the store an and updates the
+        // todoList's @Inputs, which implicitly triggers triggers a markForCheck();
         this.unsubscribe = this.appStore.subscribe(() => {
             this.updateActive();
             this.ref.markForCheck(); // force the view to update as it's using OnPush
@@ -45,7 +46,7 @@ export class FilterLink implements OnInit, OnDestroy {
 
     // Helper methods
     private applyFilter(filter) {
-        this.appStore.dispatch(this.todosActionCreator.setCurrentFilter(filter));
+        this.appStore.dispatch(this.actionCreator.setCurrentFilter(filter));
     }
 
     private updateActive() {

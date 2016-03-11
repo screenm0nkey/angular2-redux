@@ -10,7 +10,8 @@ import {Todo} from '../models/todo';
     pipes: [VisibleTodosPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <ul>
+        <div *ngIf="!todos || !todos.length">There are no Todos</div>
+        <ul *ngIf="todos && todos.length">
           <todo
             *ngFor="#todo of todos | visibleTodos:currentFilter"
             [completed]="todo.completed"
