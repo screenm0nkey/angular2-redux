@@ -1,8 +1,6 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {provide} from 'angular2/core';
 import {createStore, combineReducers} from 'redux';
-import {rootReducer} from './rootReducer';
-
 import {ActionCreator} from './actionCreator';
 import {todos, currentFilter} from './reducers';
 import {App} from './components/app';
