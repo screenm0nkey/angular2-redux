@@ -7,14 +7,14 @@ import {App} from './components/app';
 
 
 // this allows us to have multiple reducers
-const todoApp = combineReducers({
+const reducers = combineReducers({
     todos,
     currentFilter
 });
 //const appStore = createStore(rootReducer);
-const appStore = createStore(todoApp);
+const store = createStore(reducers);
 
 bootstrap(App, [
-    provide('AppStore', {useValue: appStore}),
+    provide('AppStore', {useValue: store}),
     ActionCreator
 ]).catch(err => console.error(err));

@@ -9,7 +9,7 @@ export class ActionCreator {
   addTodo(text){
     return {
       type: ADD_TODO,
-      id: this.nextToDoId++,
+      id: this.nextToDoId++, 
       text: text,
       completed: false
     };

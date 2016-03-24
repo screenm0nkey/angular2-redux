@@ -6,8 +6,8 @@ import {AppStore} from '../models/redux';
     selector: 'add-todo',
     template: `
     <div>
-      <input #todo>
-      <button (click)="addTodo(todo)">Add todo</button>
+      <input #todoRef>
+      <button (click)="addTodo(todoRef)">Add todo</button>
     </div>`
 })
 export class AddTodo {
@@ -15,7 +15,6 @@ export class AddTodo {
         @Inject('AppStore') private appStore:AppStore,
         private actionCreator:ActionCreator
     ) {}
-
 
     private addTodo(input) {
         if (input.value) {

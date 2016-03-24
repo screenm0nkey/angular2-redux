@@ -1,6 +1,7 @@
 import {Component, ContentChildren, Input, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {ActionCreator} from '../actionCreator';
 import {AppStore} from '../models/redux';
+import {State} from "../models/state";
 
 @Component({
     selector: 'filter-link',
@@ -15,6 +16,7 @@ import {AppStore} from '../models/redux';
 })
 export class FilterLink implements OnInit, OnDestroy {
     @Input('filter') filter : string;
+    state : State;
     filter:String;
     active : Boolean;
     unsubscribe : Function;
@@ -24,11 +26,13 @@ export class FilterLink implements OnInit, OnDestroy {
         private ref: ChangeDetectorRef,
         private actionCreator:ActionCreator
     ){
+        this.state = this.appStore.getState();
         // this is alternative way to update the view, by explicitly calling markForCheck()
         // when a change to the store happens. The "todoList.ts" doesn't have to explicitly
-        // call update because it's parent "App" view subscribes to the store an and updates the
-        // todoList's @Inputs, which implicitly triggers triggers a markForCheck();
-        this.unsubscribe = this.appStore.subscribe(() => {
+        // call update because it's parent "App" view subscribes to the store and updates to the
+        // todoList's @Inputs implicitly triggers a markForCheck();
+        this.unsubscribe = this.appStore.subscribe((args) => {
+            this.state = this.appStore.getState();
             this.updateActive();
             this.ref.markForCheck(); // force the view to update as it's using OnPush
         });
@@ -50,6 +54,6 @@ export class FilterLink implements OnInit, OnDestroy {
     }
 
     private updateActive() {
-        this.active = this.filter === this.appStore.getState().currentFilter;
+        this.active = this.filter === this.state.currentFilter;
     }
 }
